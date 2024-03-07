@@ -12,21 +12,40 @@ export default function Login() {
   }= useForm()
   const [isexist, setisexist]= useState()
   const navigate= useNavigate()
-const submiit= async(data)=>
-{
-  console.log('this is the the onsubmit:', data)
+// const submiit= async(data)=>
+// {
+//   console.log('this is the the onsubmit:', data)
   
-     const x= await axios.post('http://localhost:3000/login', data).catch((e)=>{console.log(e)})
-  console.log('our post  request is send on the backend server  http://localhost:3000/login', x )
-  if(x.data.exist)
-  {
-    navigate('/home')
+//      const x= await axios.post('http://localhost:3000/login', data).catch((e)=>{console.log('this is the erro',e)})
+//   console.log('our post  request is send on the backend server  http://localhost:3000/login', x )
+//   if(x.data.exist)
+//   {
+//     navigate('/home')
+//   }
+//   else { console.log('this we get from the database', x.data.exist);
+//     setisexist(true)
+// }
+// reset()
+// }
+
+const submiit = async (data) => {
+  console.log('this is the onsubmit:', data);
+
+  try {
+    const x = await axios.post('http://localhost:3000/login', data);
+    console.log('our post request is sent to the backend server http://localhost:3000/login', x);
+    if (x.data.exist) {
+      navigate('/home');
+    } else {
+      console.log('this we get from the database', x.data.exist);
+      setisexist(true);
+    }
+    reset();
+  } catch (e) {
+    console.log('this is the error:', e);
+
   }
-  else { console.log('this we get from the database', x.data.exist);
-    setisexist(true)
-}
-reset()
-}
+};
 
   return (
     <div className='  flex  w-full h-screen border-2 gap-10   border-solid border-white  items-center justify-center'>

@@ -4,13 +4,23 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import { User } from './models/user.js'
+import cookieParser from  'cookie-parser'
 
 
 
 console.log(process.env.PORT)
 const app= express()
 app.use(express.json())
-app.use(cors());
+app.use(cors(
+  {
+    origin:'http://localhost:5173',
+    methods:['GET','POST'],
+    credentials:true
+  }
+    
+));
+app.use(cookieParser())
+
 mongoose.connect(`${process.env.DB_URL}/User`).catch(error => handleError(error));
 
 app.post('/user', async(req,res)=>
@@ -40,7 +50,7 @@ app.post('/login', async(req,res)=>
     console.log('this is the after password checking', result)
     if(!result)
     {
-         res.status(403).json({exist:false})
+         res.json({exist:false})
     }
     else  res.status(200).json({ exist: true });
 })
