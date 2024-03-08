@@ -10,6 +10,7 @@ export default function Login() {
     handleSubmit,
     reset
   }= useForm()
+  axios.defaults.withCredentials= true;
   const [isexist, setisexist]= useState()
   const navigate= useNavigate()
 // const submiit= async(data)=>
