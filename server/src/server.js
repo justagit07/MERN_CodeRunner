@@ -20,6 +20,7 @@ app.use(cors(
 
 ));
 
+mongoose.connect(`${process.env.DB_URL}/User`).catch(error => handleError(error));
 const verify= (req, res, next)=>
 { 
     const {Acesstoken}= req.cookies
@@ -43,7 +44,6 @@ const verify= (req, res, next)=>
 }
 app.use(cookieParser())
 
-mongoose.connect(`${process.env.DB_URL}/User`).catch(error => handleError(error));
 
 app.get('/home', verify, async(req,res)=>
 {

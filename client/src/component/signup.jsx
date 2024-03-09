@@ -25,6 +25,7 @@ export default function Signup() {
             navigate('/login')
             setisexist(false)
         }
+        
         reset()
 
       };
